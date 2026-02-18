@@ -6,6 +6,7 @@ body{
     display: flex;
     flex-direction: column;
     height: 100vh;
+    
 }
 .msgs {
     width: 100vw;
@@ -35,4 +36,10 @@ input{
 
 button{
     font-size: 30px;
+    background-color: #30c089;
+}
+.exit{
+    background-color: #055530;
+    width: 100vw;
+    overflow-y: auto;
 }

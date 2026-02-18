@@ -3,16 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+   <style>
+    body{
+        background-color: rgb(149, 216, 233);
+    }
+    button {
+    background: rgb(94, 255, 201);
+    display: block;
+    margin: 10px auto;
+    padding: 12px 24px;
+    width: 200px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #226585;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(94, 255, 201, 0.3);
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background: #60ffcb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgb(6, 108, 139);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(172, 255, 227, 0.788);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(116, 178, 197, 0.959);
+}
+    
+   input {
+    text-align: center;
+    display: block;
+    margin: 12px auto;
+    padding: 12px 20px;
+    width: 220px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #5effc9;
+    box-shadow: 0 0 0 3px rgba(94, 255, 201, 0.2);
+}
+
+input:hover {
+    border-color: #5587b6;
+}
+
+    
+   </style>
 </head>
 <body>
     <form method="post">
         <div>{{ sysmsg }}</div>
-        <div>
+        <div class="text">
            
             <input type="text" name="username" placeholder="User..." value={{formuser}}>
+            
             <input type="text" name="password" placeholder="Pass..." value={{formpass}}>
         </div>
-
+<br>
         <button>Войти</button>
     </form>
 </body>
