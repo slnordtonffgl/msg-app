@@ -6,7 +6,9 @@
 </head>
 <body>
     {% for u in users %}
-        <div>{{ u[0] }} <button>Удалить</button> </div> 
+      <form action="/delete_user" method="POST">
+        <input type="text" value="{{ u[0] }}" readonly name="user">  <button>Удалить</button> </form> 
     {% endfor %}
+
 </body>
 </html>

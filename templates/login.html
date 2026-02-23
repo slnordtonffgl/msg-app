@@ -5,10 +5,10 @@
     <title>Login</title>
    <style>
     body{
-        background-color: rgb(149, 216, 233);
+        background-color: rgb(185, 149, 233);
     }
     button {
-    background: rgb(94, 255, 201);
+    background: rgb(196, 94, 255);
     display: block;
     margin: 10px auto;
     padding: 12px 24px;
@@ -17,26 +17,26 @@
     border-radius: 8px;
     font-size: 18px;
     font-weight: 500;
-    color: #226585;
+    color: #752285;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(94, 255, 201, 0.3);
+    box-shadow: 0 2px 8px rgba(255, 94, 242, 0.3);
     transition: all 0.2s ease;
 }
 
 button:hover {
-    background: #60ffcb;
+    background: #fa60ff;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgb(6, 108, 139);
+    box-shadow: 0 4px 12px rgb(139, 6, 132);
 }
 
 button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(172, 255, 227, 0.788);
+    box-shadow: 0 2px 6px rgba(214, 71, 250, 0.63);
 }
 
 button:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(116, 178, 197, 0.959);
+    box-shadow: 0 0 0 2px rgba(207, 120, 200, 0.801);
 }
     
    input {
@@ -45,21 +45,22 @@ button:focus {
     margin: 12px auto;
     padding: 12px 20px;
     width: 220px;
-    border: 2px solid #ddd;
+    border: 2px solid #a56baa;
     border-radius: 8px;
     font-size: 16px;
-    background: #fff;
+    background: #f3a5fa;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    color: #3c0c46;
 }
 
 input:focus {
     outline: none;
-    border-color: #5effc9;
-    box-shadow: 0 0 0 3px rgba(94, 255, 201, 0.2);
+    border-color: #c45eff;
+    box-shadow: 0 0 0 3px rgba(255, 94, 255, 0.2);
 }
 
 input:hover {
-    border-color: #5587b6;
+    border-color: #a355b6;
 }
 
     
@@ -73,6 +74,8 @@ input:hover {
             <input type="text" name="username" placeholder="User..." value={{formuser}}>
             
             <input type="text" name="password" placeholder="Pass..." value={{formpass}}>
+        
+            
         </div>
 <br>
         <button>Войти</button>

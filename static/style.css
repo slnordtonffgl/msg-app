@@ -6,19 +6,21 @@ body{
     display: flex;
     flex-direction: column;
     height: 100vh;
-    
+    background-color: #d380c0;
 }
 .msgs {
     width: 100vw;
     overflow-y: auto;
-    background: teal;
+    background: rgb(92, 0, 128);
 }
 .msg{
     padding: 5px;
     font-size: 24px;
-    background: #c0ffd3;
-    box-shadow: 2px 2px 2px #43bf68;
+    background: #f8c0ff;
+    box-shadow: 2px 2px 2px #aa43bf;
     margin: 10px; 
+    border-radius: 15px;
+    color: #550544;
 }
 
 form{
@@ -36,10 +38,12 @@ input{
 
 button{
     font-size: 30px;
-    background-color: #30c089;
+    background-color: #890fa1;
+    color: #550544;
 }
 .exit{
-    background-color: #055530;
+    background-color: #6a0877;
     width: 100vw;
     overflow-y: auto;
+    color: #480d53;
 }
