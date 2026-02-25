@@ -10,7 +10,7 @@ DB_PATH = "data.db"
 
 ADMIN_USERNAME = "admin"
 ADMIN_PASSWORD = "secret"
-
+AUTO_REGISTRATION = True
 
 # ---------------------------
 # Инициализация базы данных
@@ -36,12 +36,18 @@ def init_db():
     """)
     
     # Создания админ аккаунта
-    hashed = generate_password_hash(ADMIN_PASSWORD)
 
-    conn.execute(
+    admin = conn.execute("SELECT username FROM users WHERE username = ?", (ADMIN_USERNAME,)).fetchall()
+
+    if admin == []:
+        hashed = generate_password_hash(ADMIN_PASSWORD)
+
+        conn.execute(
         "INSERT INTO users (username, password) VALUES (?, ?)",
         (ADMIN_USERNAME, hashed)
-    )
+        )
+
+
 
     conn.commit()
     conn.close()
@@ -126,27 +132,57 @@ def admin():
     else:
         return "Доступ запрещен"
     
+@app.route('/create_user', methods=['GET', 'POST'])
+def create_user():
+    username = request.form['username'].strip()
+    password = request.form['password'].strip()
+        
+    conn = sqlite3.connect(DB_PATH)
+
+    # Проверяем, существует ли пользователь
+    user = conn.execute(
+        "SELECT password FROM users WHERE username = ?",
+        (username,)
+    ).fetchone()
+
+    if user is None: 
+        # Пользователя нет → создаём аккаунт
+        hashed = generate_password_hash(password)
+
+        conn.execute(
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            (username, hashed)
+        )
+        conn.commit()
+        conn.close() 
+    return redirect('/admin')       
 # ---------------------------
 # Удаление пользователей
 # ---------------------------
-@app.route('/delete_user', methods=['GET', 'POST'])
-def delete_user():
-    user = request.form['user'].strip()
+@app.route('/autoreg', methods=['GET', 'POST'])
+def autoreg():
+    global  AUTO_REGISTRATION 
+    areg = request.form.get('autoreg')
+    
+    print(areg)
 
-    conn = sqlite3.connect(DB_PATH)
+    if areg == None:
+        AUTO_REGISTRATION = False
+    else:
+        AUTO_REGISTRATION = True    
 
-    conn.execute("DELETE FROM users WHERE username = ?", (user,))
+    return redirect('/admin')
 
-    conn.commit()
-    conn.close()
-
-    return user + "был удален!"
+@app.route
 # ---------------------------
 # Логин / регистрация
 # ---------------------------
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+         
+       
 
+def login():
+    global  AUTO_REGISTRATION
     if request.method == 'POST':
         username = request.form['username'].strip()
         password = request.form['password'].strip()
@@ -162,7 +198,7 @@ def login():
             (username,)
         ).fetchone()
 
-        if user is None:
+        if user is None and AUTO_REGISTRATION: 
             # Пользователя нет → создаём аккаунт
             hashed = generate_password_hash(password)
 
@@ -176,14 +212,18 @@ def login():
             session['username'] = username
             return redirect('/')
 
-        else:
-            # Пользователь существует → проверяем пароль
+        elif user is None and AUTO_REGISTRATION == False:
+                conn.close()
+                return render_template('login.html', sysmsg="Авто регистрация отключена ")
+        elif user is not None:
+            
             stored_hash = user[0]
 
             if check_password_hash(stored_hash, password):
                 conn.close()
                 session['username'] = username
                 return redirect('/')
+        
             else:
                 conn.close()
                 return render_template('login.html', sysmsg="Неверный пароль")

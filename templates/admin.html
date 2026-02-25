@@ -2,13 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
 </head>
 <body>
+    <form action="/autoreg" method="post">
+    <input type="checkbox" name="autoreg"> Авто-регистрация
+    <button>Применить</button>
+    </form>
     {% for u in users %}
       <form action="/delete_user" method="POST">
         <input type="text" value="{{ u[0] }}" readonly name="user">  <button>Удалить</button> </form> 
     {% endfor %}
 
+    <form  action="/create_user" method="post">
+        <div>{{ sysmsg }}</div>
+        <div class="text">
+           
+            <input type="text" name="username" placeholder="User..." value={{formuser}}>
+            
+            <input type="text" name="password" placeholder="Pass..." value={{formpass}}>
+        
+            
+        </div>
+<br>
+        <button>Войти</button>
+    </form>
 </body>
 </html>
